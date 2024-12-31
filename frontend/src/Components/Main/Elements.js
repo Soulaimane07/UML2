@@ -32,9 +32,9 @@ function Elements({ initialElements, setElements }) {
       const newMethod = {
         visibility: "public",  // Default visibility
         type: "void",         // Default type (e.g., void for methods that return nothing)
-        name: `Method${hoveredElement.methods.length + 1}`,
+        name: `Method${hoveredElement?.methods?.length + 1}`,
       };
-      hoveredElement.methods.push(newMethod);
+      hoveredElement?.methods?.push(newMethod);
       setHoveredElement({ ...hoveredElement });
     }
   };
@@ -60,23 +60,23 @@ function Elements({ initialElements, setElements }) {
     }, 0);
   };
 
-  const handleSaveEdit = () => {
-    if (editing && hoveredElement) {
-      const { type, index } = editing;
-      let updatedElement = { ...hoveredElement };
+  // const handleSaveEdit = () => {
+  //   if (editing && hoveredElement) {
+  //     const { type, index } = editing;
+  //     let updatedElement = { ...hoveredElement };
 
-      if (type === "attribute") {
-        updatedElement.attributes[index].name = inputValue;
-      } else if (type === "method") {
-        updatedElement.methods[index].name = inputValue;
-      } else if (type === "title") {
-        updatedElement.name = inputValue;
-      }
+  //     if (type === "attribute") {
+  //       updatedElement.attributes[index].name = inputValue;
+  //     } else if (type === "method") {
+  //       updatedElement?.methods[index]?.name = inputValue;
+  //     } else if (type === "title") {
+  //       updatedElement.name = inputValue;
+  //     }
 
-      setHoveredElement(updatedElement);
-    }
-    setEditing(null);
-  };
+  //     setHoveredElement(updatedElement);
+  //   }
+  //   setEditing(null);
+  // };
 
   const handleDeleteElement = () => {
     const updatedElements = initialElements.filter((element) => element.id !== hoveredElement.id);
@@ -87,7 +87,7 @@ function Elements({ initialElements, setElements }) {
 
   return (
     <>
-      {initialElements.map((element, indexx) => {
+      {initialElements?.map((element, indexx) => {
         return (
           <div
             id={element.id}
@@ -102,6 +102,7 @@ function Elements({ initialElements, setElements }) {
               backgroundColor: "white",
               padding: "10px",
               boxSizing: "border-box",
+              zIndex: 1,
             }}
             onMouseEnter={() => setHoveredElement(element)}
           >

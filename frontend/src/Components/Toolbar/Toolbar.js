@@ -3,13 +3,15 @@ import Button from "../Buttons/Button"
 import { MdIndeterminateCheckBox } from "react-icons/md";
 import { VscSymbolInterface } from "react-icons/vsc";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { AddElement, SaveWork, uploadWork } from "../Functions";
+import { AddElement, generateAndExportCode, PostToBackend, SaveWork, uploadWork } from "../Functions";
 
 import { MdOutlineFileDownload, MdOutlineFileUpload  } from "react-icons/md";
 import { FaFileExport } from "react-icons/fa6";
+import { FaSave  } from "react-icons/fa";
+import { GoHistory } from "react-icons/go";
 
 
-const Toolbar = ({elements, setElements}) => {
+const Toolbar = ({elements, connectors, setElements, setConnectors, setShow, setShowSelection, setShowGenerate}) => {
     const triggerFileInput = () => {
         document.getElementById("file-input").click(); // Trigger hidden file input
     };
@@ -28,25 +30,25 @@ const Toolbar = ({elements, setElements}) => {
 
                     <div className="mt-6">
                         <h2 className=" opacity-50 text-gray-100 mb-2"> Connectors </h2>
-                        <Button title="Association" icon={<FaArrowRightLong size={18} />} />
-                        <Button title="Composition" icon={<FaArrowRightLong size={18} />} />
-                        <Button title="Aggregation" icon={<FaArrowRightLong size={18} />} />
-                        <Button title="Heritage" icon={<FaArrowRightLong size={18} />} />
-                        <Button title="Implementation" icon={<FaArrowRightLong size={18} />} />
+                        <Button title="Association" icon={<FaArrowRightLong size={18} />} fun={()=> setShowSelection("Association")} />
+                        <Button title="Heritage" icon={<FaArrowRightLong size={18} />} fun={()=> setShowSelection("Inheritance")} />
+                        <Button title="Implementation" icon={<FaArrowRightLong size={18} />} fun={()=> setShowSelection("Implementation")} />
                     </div>
                 </ul>
 
                 <ul className=" px-4">
-                    <Button title="Save work" icon={<MdOutlineFileDownload size={18} />} fun={()=> SaveWork(elements)} />
+                    <Button title="Save work" icon={<MdOutlineFileDownload size={18} />} fun={()=> SaveWork(elements, connectors)} />
                     <Button title="Import Work" icon={<MdOutlineFileUpload size={18} />} fun={triggerFileInput} />
                     <input
                         type="file"
                         accept=".json"
-                        onChange={(e)=> uploadWork(e, setElements)}
+                        onChange={(e)=> uploadWork(e, setElements, setConnectors)}
                         style={{ display: "none" }}
                         id="file-input"
                     />
-                    <Button title="Generate Code" icon={<FaFileExport size={18} />} fun={null} />
+                    <Button title="Generate Code" icon={<FaFileExport size={18} />} fun={()=> setShowGenerate(true)} />
+                    <Button title="Save" icon={<FaSave  size={18} />} fun={()=> PostToBackend(elements, connectors)} />
+                    <Button title="History" icon={<GoHistory size={18} />} fun={()=> setShow(true)} />
                 </ul>
             </div>
         </div>
