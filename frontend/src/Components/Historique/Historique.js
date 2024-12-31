@@ -8,7 +8,8 @@ function Historique({setShow, setElements, setConnectors}) {
   return (
     <div className='bg-gray-200 w-80 px-3 z-10 py-10 absolute h-screen right-0 top-0 shadow-gray-400 shadow-xl'>
       <div className='flex items-center justify-between mb-4'>
-        <h1 className=' font-bold text-xl'> History </h1>
+        <h1 className=' font-bo_
+        ld text-xl'> History </h1>
         <button onClick={()=> setShow(false)} className='flex items-center px-2 rounded-sm justify-end bg-transparent hover:bg-gray-300 py-1 transition-all'> <IoClose size={24} /> </button>
       </div>
 

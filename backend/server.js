@@ -16,8 +16,6 @@ let db;
 
 
 
-
-
 // Connect to MongoDB
 MongoClient.connect(url, { useUnifiedTopology: true })
     .then((client) => {
